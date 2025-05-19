@@ -4,6 +4,18 @@
   "newProjectRoot": "projects",
   "projects": {
     "ComparadorDePrecios": {
+      "i18n": {
+        "locales": {
+          "en": {
+            "translation": "src/locale/messages.en.xlf",
+            "baseHref": "/en/"
+          },
+          "es-AR": {
+            "translation": "src/locale/messages.es-AR.xlf",
+            "baseHref": ""
+          }
+        }
+      },
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -17,13 +29,14 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "public",
               }
             ],
             "styles": [
@@ -35,6 +48,30 @@
             ]
           },
           "configurations": {
+            "development-es": {
+              "localize": ["es-AR"],
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "development-en": {
+              "localize": ["en"],
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            },
             "production": {
               "budgets": [
                 {
@@ -72,6 +109,12 @@
             },
             "development": {
               "buildTarget": "ComparadorDePrecios:build:development"
+            },
+            "development-es": {
+              "buildTarget": "ComparadorDePrecios:build:development-es"
+            },
+            "development-en": {
+              "buildTarget": "ComparadorDePrecios:build:development-en"
             }
           },
           "defaultConfiguration": "development"
@@ -84,7 +127,8 @@
           "options": {
             "polyfills": [
               "zone.js",
-              "zone.js/testing"
+              "zone.js/testing",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
